@@ -9,6 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions", "Extensions\Ex
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{D1974E2F-A105-4148-A4C2-BAD5AEFDC0E7}"
 	ProjectSection(SolutionItems) = preProject
+		lib\CustomItemGenerator.dll = lib\CustomItemGenerator.dll
 		lib\Readme.txt = lib\Readme.txt
 		lib\Sitecore.Kernel.dll = lib\Sitecore.Kernel.dll
 	EndProjectSection

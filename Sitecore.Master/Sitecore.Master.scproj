@@ -25,6 +25,8 @@
     <FieldsForCodeGen>__Hidden,__Long description,__Read Only,__Short description,__Sortorder,Blob,Default value,Shared,Title,Unversioned,Validation,ValidationText,__Display name</FieldsForCodeGen>
     <CodeGenFile>TdsT4CodeGeneratedFile.cs</CodeGenFile>
     <CodeGenTargetProject>SampleContent</CodeGenTargetProject>
+    <BaseTransformFile>Velir.tt</BaseTransformFile>
+    <HeaderTransformFile>VelirHeader.tt</HeaderTransformFile>
     <BaseNamespace>BaseNamespace</BaseNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -141,6 +143,7 @@
       <Icon>/temp/IconCache/Applications/16x16/folder.png</Icon>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
+      <CodeGenNamespace>TemplateFolderNamespace</CodeGenNamespace>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\TDSCodeGen\ArticlePage.item">
       <Icon>/temp/IconCache/Applications/16x16/copy.png</Icon>
@@ -625,6 +628,8 @@
   <ItemGroup>
     <CodeGenTemplate Include="Code Generation Templates\Helpers.tt" />
     <CodeGenTemplate Include="Code Generation Templates\ItemPaths.tt" />
+    <CodeGenTemplate Include="Code Generation Templates\Velir.tt" />
+    <CodeGenTemplate Include="Code Generation Templates\VelirHeader.tt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\HedgehogDevelopment\SitecoreProject\v9.0\HedgehogDevelopment.SitecoreProject.targets" />
 </Project>
