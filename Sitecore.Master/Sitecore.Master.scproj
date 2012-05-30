@@ -26,6 +26,8 @@
     <CodeGenFile>TdsT4CodeGeneratedFile.cs</CodeGenFile>
     <CodeGenTargetProject>SampleContent</CodeGenTargetProject>
     <BaseNamespace>BaseNamespace</BaseNamespace>
+    <BaseTransformFile>GlassItem.tt</BaseTransformFile>
+    <HeaderTransformFile>GlassHeader.tt</HeaderTransformFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -136,6 +138,8 @@
       <Icon>/temp/IconCache/Applications/16x16/form_blue.png</Icon>
       <ChildItemSynchronization>NoChildSynchronization</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+      <CodeGenNamespace>
+      </CodeGenNamespace>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\TDSCodeGen.item">
       <Icon>/temp/IconCache/Applications/16x16/folder.png</Icon>
@@ -625,6 +629,8 @@
   <ItemGroup>
     <CodeGenTemplate Include="Code Generation Templates\Helpers.tt" />
     <CodeGenTemplate Include="Code Generation Templates\ItemPaths.tt" />
+    <CodeGenTemplate Include="Code Generation Templates\GlassHeader.tt" />
+    <CodeGenTemplate Include="Code Generation Templates\GlassItem.tt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\HedgehogDevelopment\SitecoreProject\v9.0\HedgehogDevelopment.SitecoreProject.targets" />
 </Project>
