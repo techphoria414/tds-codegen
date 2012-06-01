@@ -5,8 +5,8 @@
 
 <#@ assembly name="System.Core.dll" #>
 
-<#@ import namespace="TdsT4Extensions" #>
-<#@ assembly name="TdsT4Extensions.dll" #>
+<#@ import namespace="HedgehogDevelopment.CodeGeneration.Extensions" #>
+<#@ assembly name="HedgehogDevelopment.CodeGeneration.Extensions.dll" #>
 
 <#@ import namespace="System" #>
 <#@ import namespace="System.Text" #>
@@ -58,7 +58,10 @@ namespace <#= GetNamespace(DefaultNamespace, template)#>
 			
 <#}#>
 	}
-	
+
+<#
+// If the name of the template looks like an Interface, then don't generate a class definition
+if (!template.Name.IsInterfaceWord()){ #>	
 	/// <summary>
 	/// <#= template.Name.AsClassName() #>
 	/// <para><#= template.SitecoreFields.GetValue("__Short description")#></para>
@@ -82,6 +85,7 @@ namespace <#= GetNamespace(DefaultNamespace, template)#>
 			
 <#}#>	
 	}
+<#}#>
 }
 
 <#+

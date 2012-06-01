@@ -2,8 +2,8 @@
 <#@ include file="Helpers.tt" #>
 <#@ assembly name="System.Core.dll" #>
 
-<#@ import namespace="TdsT4Extensions" #>
-<#@ assembly name="TdsT4Extensions.dll" #>
+<#@ import namespace="HedgehogDevelopment.CodeGeneration.Extensions" #>
+<#@ assembly name="HedgehogDevelopment.CodeGeneration.Extensions.dll" #>
 
 <#@ import namespace="System" #>
 <#@ import namespace="System.Text" #>
