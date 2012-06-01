@@ -54,12 +54,13 @@ string ToolVersion = "1.0";
 namespace <#= GetNamespace(DefaultNamespace, template)#>
 {
  	/// <summary>
-	/// <#= template.Name.AsInterfaceName() #> Interface
+	/// <#=CleanName(template.Name.AsInterfaceName()) #> Interface
 	/// <para><#= template.SitecoreFields.GetValue("__Short description")#></para>
 	/// <para>Path: <#= template.Path #></para>	
 	/// <para>ID: <#= template.ID.ToString() #></para>	
 	/// </summary>
-	public interface <#= template.Name.AsInterfaceName() #> : IGlassBase <#=GetObjectInheritanceDefinition(DefaultNamespace, template, true, (string s) => s.AsInterfaceName())#>
+	[SitecoreClass]
+	public partial interface <#= CleanName(template.Name.AsInterfaceName()) #> : <#=DefaultNamespace#>.ISitecoreItem <#=GetObjectInheritanceDefinition(DefaultNamespace, template, true, (string s) => CleanName(s.AsInterfaceName()))#>
 	{
 <#foreach(SitecoreField field in GetFieldsForTemplate(template, false)){#>
 		/// <summary>
@@ -84,8 +85,22 @@ if (!template.Name.IsInterfaceWord()){ #>
 	/// <para>ID: <#= template.ID.ToString() #></para>	
 	/// </summary>
 	[SitecoreClass(TemplateId="<#=template.ID#>")]
-	public partial class <#= template.Name.AsClassName() #>  : GlassBase, <#=template.Name.AsInterfaceName()#> 
+	public partial class <#= CleanName(template.Name.AsClassName()) #>  : <#=GetBaseClass(template) != null ? GetBaseClass(template) + "," : "" #><#=CleanName(template.Name.AsInterfaceName())#> 
 	{
+		public static readonly Guid TemplateId = Guid.Parse("<#= template.ID.ToString() #>");
+
+		[SitecoreId]
+		public virtual Guid ID{ get; private set;}
+
+		[SitecoreInfo(SitecoreInfoType.Language)]
+        public virtual Language Language{ get; private set; }
+
+        [SitecoreInfo(SitecoreInfoType.Version)]
+        public virtual int Version { get; private set; }
+
+		[SitecoreInfo(SitecoreInfoType.Url)]
+		public virtual string Url { get; private set; }
+
 <#foreach(SitecoreField field in GetFieldsForTemplate(template, true)){#>
 		/// <summary>
 		/// The <#=field.Name#> field.
@@ -95,7 +110,7 @@ if (!template.Name.IsInterfaceWord()){ #>
 		/// <para>Custom Data: <#=field.Data#></para>
 		/// </summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("<#=Tool#>", "<#=ToolVersion#>")]
-		[SitecoreField("<#=field.Name#>")]
+		[SitecoreField(FieldName = "<#=field.Name#>" <#=GetFieldSetting(field)#>)]
 		public virtual <#=GetGlassFieldType(field)#> <#= GetPropertyName(field) #>  {get; set;}
 			
 <#}#>	
@@ -167,6 +182,9 @@ public static string GetGlassFieldType(SitecoreField field)
 			case "checklist":
 			case "multilist":
 	            return string.Format("IEnumerable<{0}>", string.IsNullOrEmpty(generic) ? "Guid" : generic);
+
+			case "name value list":
+				return "System.Collections.Specialized.NameValueCollection";
 
 			case "grouped droplink":
 			case "droplink":

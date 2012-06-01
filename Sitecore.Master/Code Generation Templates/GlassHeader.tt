@@ -40,13 +40,13 @@ using Sitecore.Globalization;
 string fullNamespace = JoinNamespaces(DefaultNamespace, Model.BaseNamespace);
 #>
 
-namespace <#=fullNamespace #>
+namespace <#=DefaultNamespace #>
 {
 
-	public interface IGlassBase{
+	public interface ISitecoreItem {
 		
 		[SitecoreId]
-		Guid Id{ get; }
+		Guid ID{ get; }
 
 		[SitecoreInfo(SitecoreInfoType.Language)]
         Language Language{ get; }
@@ -54,17 +54,7 @@ namespace <#=fullNamespace #>
         [SitecoreInfo(SitecoreInfoType.Version)]
         int Version { get; }
 
-	}
-
-	public abstract class GlassBase : IGlassBase{
-		
-		[SitecoreId]
-		public virtual Guid Id{ get; private set;}
-
-		[SitecoreInfo(SitecoreInfoType.Language)]
-        public virtual Language Language{ get; private set; }
-
-        [SitecoreInfo(SitecoreInfoType.Version)]
-        public virtual int Version { get; private set; }
+		[SitecoreInfo(SitecoreInfoType.Url)]
+		string Url { get; }
 	}
 }

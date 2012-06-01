@@ -9,7 +9,7 @@
 /// <param name="template">The template.</param>
 public static string GetFullyQualifiedName(string defaultNamespace, SitecoreItem item)
 {
-	return GetFullyQualifiedName(defaultNamespace, item, HedgehogDevelopment.CodeGeneration.Extensions.StringExtensions.AsClassName);
+	return GetFullyQualifiedName(defaultNamespace, item, (string s) => CleanName(s));
 }
 
 /// <summary>
@@ -34,6 +34,16 @@ public static string GetNamespace(string defaultNamespace, SitecoreItem item, bo
 	string @namespace = namespaceSegments.AsNamespace(); // use an extension method in the supporting assembly
 
 	return includeGlobal ? string.Concat("global::", @namespace) : @namespace;
+}
+
+public static string GetBaseClass(SitecoreItem item)
+{
+	string customBase = GetCustomProperty(item.Data, "base");
+	if (!string.IsNullOrEmpty(customBase))
+	{
+		return customBase;
+	}
+	return null;
 }
 
 /// <summary>
@@ -88,7 +98,17 @@ public static string GetPropertyName(SitecoreField field)
 	
 	bool isFieldPlural = IsFieldPlural(field);
 	
-	return field.Name.AsPropertyName(isFieldPlural);
+	return CleanName(field.Name.AsPropertyName(isFieldPlural));
+}
+
+public static string GetFieldSetting(SitecoreField field)
+{
+	string setting = GetCustomProperty(field.Data, "setting");
+	if (!string.IsNullOrEmpty(setting))
+	{
+		return string.Format(", Setting = {0}", setting);
+	}
+	return string.Empty;
 }
 
 /// <summary>
@@ -134,6 +154,11 @@ public static string GetCustomProperty(string data, string key)
         }
     }
     return "";
+}
+
+public static string CleanName(string name)
+{
+	return name.Replace("_", "");
 }
 
 #>
