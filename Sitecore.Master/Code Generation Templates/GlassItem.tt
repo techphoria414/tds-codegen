@@ -21,6 +21,21 @@
 /*
 This TDS Code Generation template is used to generate objects that are compatible with the
 Glass Sitecore Mapper that is available @ http://www.glass.lu/
+
+There are a few things you can put in the 'Custom Data' property of a field in TDS. 
+To use multiple settings put them in as a querystring (key1=value&key2=value)
+
+ignore=true
+	Sets a field to be skipped over for code gen
+name=[name]
+	Forces the name of the generated property. 
+	If not specified, then the generated property is the name of the Sitecore field. 
+	If the field stores multiple values, the property name is pluralized.
+type=[type]
+	Sets the return type of the generated property
+generic=[type]
+	In the event the type (either specificed or auto mapped) is a generic it will use this generic type. i.e. List<generic>
+		
 */
 #>
 
